@@ -1,30 +1,42 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.lang.Integer;
+import java.util.concurrent.ThreadLocalRandom;
+
 public class Main {
+    private static final int MIN = 100;
+    private static final int MAX = 199;
+
     public static void main(String[] args) {
-        System.out.println("Hello");
+        Graph graph = generateGraph(5);
+
+        for (Vertex v : graph.getVertices()) {
+            for (Edge e: v.getEdges()) {
+                System.out.printf("%s, %s, %d\n", v.getLabel(), e.getTo().getLabel(), e.getWeight());
+            }
+        }
+
+        // System.out.println(graph.getVertices());
+    }
+
+    private static Graph generateGraph(int num_vertices) {
         Graph graph = new Graph();
-        Vertex v1 = new Vertex("1"); 
-        Vertex v2 = new Vertex("2"); 
-        Vertex v3 = new Vertex("3");
-        Vertex v4 = new Vertex("4");
-        Vertex v5 = new Vertex("5");
+        
+        for (int i = 0; i < num_vertices; i++) {
+            Vertex v = new Vertex(Integer.toString(i));
+            graph.addVertex(v);
+        }
+        
+        for (Vertex vi : graph.getVertices()) {
+            for (Vertex vj : graph.getVertices()) {
+                if (vi != vj && !vi.getEdges().stream().map(e -> e.getTo()).anyMatch(x -> x.equals(vj))) {
+                    int randInt = ThreadLocalRandom.current().nextInt(MIN, MAX + 1);
+                    vi.addEdge(new Edge(vj, randInt));
+                    vj.addEdge(new Edge(vi, randInt));
+                }
+            }
+        }
 
-        //to make the graph un directed use the same weight 
-        //both ways 
-        v1.addEdge(new Edge(v2, 1)); //connect v1 v2 
-        v2.addEdge(new Edge(v1, 1));   
-
-        v2.addEdge(new Edge(v3, 2)); //connect v2 v3
-        v3.addEdge(new Edge(v2, 2));
-
-        v2.addEdge(new Edge(v4, 3)); //connect v2 v4
-        v4.addEdge(new Edge(v2, 3));
-
-        v4.addEdge(new Edge(v5, 1)); //connect v4 v5
-        v5.addEdge(new Edge(v4, 1));
-
-        graph.addVertex(v1); graph.addVertex(v2); graph.addVertex(v3);
-        graph.addVertex(v4); graph.addVertex(v5);  
-
-        System.out.println(graph.getVertices());
+        return graph;
     }
 }
