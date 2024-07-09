@@ -15,8 +15,8 @@ public class Graph {
         return new ArrayList<>(vertices);
     }   
 
-    boolean addVertex(Vertex vertex){
-        return vertices.add(vertex);
+    boolean addVertex(int index, Vertex vertex){
+        return vertices.add(index, vertex);
     }
 }
 

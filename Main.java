@@ -16,6 +16,7 @@ public class Main {
             }
         }
 
+        /*
         ArrayList<ArrayList<Vertex>> paths = Algorithms.findHamoltonianCycles(graph);
         for (ArrayList<Vertex> path : paths) {
             for (Vertex v : path) {
@@ -23,6 +24,8 @@ public class Main {
             }
             System.out.println();
         }
+        */
+        Algorithms.dfs(graph, graph.getVertices().get(0));
 
         // System.out.println(graph.getVertices());
     }
@@ -32,7 +35,7 @@ public class Main {
         
         for (int i = 0; i < num_vertices; i++) {
             Vertex v = new Vertex(Integer.toString(i));
-            graph.addVertex(v);
+            graph.addVertex(i, v);
         }
         
         for (Vertex vi : graph.getVertices()) {
