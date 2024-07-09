@@ -16,6 +16,14 @@ public class Main {
             }
         }
 
+        ArrayList<ArrayList<Vertex>> paths = Algorithms.findHamoltonianCycles(graph);
+        for (ArrayList<Vertex> path : paths) {
+            for (Vertex v : path) {
+                System.out.print(v.getLabel() + " ");
+            }
+            System.out.println();
+        }
+
         // System.out.println(graph.getVertices());
     }
 
