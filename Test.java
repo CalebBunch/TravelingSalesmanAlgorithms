@@ -108,24 +108,25 @@ class Test {
         };
 
         hamiltonian.hasCycle(graph);
-
+        
+        ArrayList<ArrayList<Integer>> original = new ArrayList<ArrayList<Integer>>();
         for (ArrayList<Integer> p : paths) {
             for (ArrayList<Integer> pp : paths) {
-                if (pp != p) {
+                if (!pp.equals(p)) {
                     Collections.reverse(pp);
-                    if (pp == p) {
-                        paths.remove(pp);
+                    if (pp.equals(p)) {
+                        original.add(pp);
                     }
                 }
             }
         }
-        for (ArrayList<Integer> p : paths) {
+        for (ArrayList<Integer> p : original) {
             for (Integer v : p) {
                 System.out.print(v.toString() + " ");
             }
             System.out.println();
         }
         // System.out.println(count);
-        System.out.println(paths.size());
+        System.out.println(original.size());
     }
 }
