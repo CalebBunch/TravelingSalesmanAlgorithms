@@ -16,18 +16,13 @@ public class Main {
             }
         }
 
-        /*
-        ArrayList<ArrayList<Vertex>> paths = Algorithms.findHamoltonianCycles(graph);
-        for (ArrayList<Vertex> path : paths) {
-            for (Vertex v : path) {
+        ArrayList<ArrayList<Vertex>> paths = Algorithms.BruteForce.findHamiltonianCycles(graph, graph.getVertices().get(0));
+        for (ArrayList<Vertex> p : paths) {
+            for (Vertex v : p) {
                 System.out.print(v.getLabel() + " ");
             }
             System.out.println();
         }
-        */
-        Algorithms.dfs(graph, graph.getVertices().get(0));
-
-        // System.out.println(graph.getVertices());
     }
 
     private static Graph generateGraph(int num_vertices) {
