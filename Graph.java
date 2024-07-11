@@ -5,18 +5,18 @@ import java.util.Set;
 
 public class Graph {
 
-    private Set<Vertex> vertices;
+    private ArrayList<Vertex> vertices;
 
     public Graph() {
-        vertices = new HashSet<>();
+        vertices = new ArrayList<>();
     } 
 
     List<Vertex> getVertices() {
-        return new ArrayList<>(vertices);
+        return vertices;
     }   
 
-    boolean addVertex(int index, Vertex vertex){
-        return vertices.add(index, vertex);
+    void addVertex(int index, Vertex vertex){
+        vertices.add(index, vertex);
     }
 }
 

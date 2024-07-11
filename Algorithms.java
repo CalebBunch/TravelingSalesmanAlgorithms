@@ -1,6 +1,8 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
 public class Algorithms {
     
@@ -11,20 +13,24 @@ public class Algorithms {
         public static ArrayList<ArrayList<Vertex>> findHamiltonianCycles(Graph g, Vertex root) {
             ArrayList<Vertex> path = new ArrayList<>();
             path.add(root);
-            Map<Vertex, boolean> visited = new Map<Vertex, bool>;
+            Map<Vertex, Boolean> visited = new HashMap<Vertex, Boolean>();
             for (Vertex v : g.getVertices()) {
                 visited.put(v, false); 
             }
             visited.put(root, true);
-            Vertex start = new Vertex();
             for (Vertex v : g.getVertices()) {
                 if (!v.equals(root)) {
-                    start = v;
+                    helper(g, v, path, visited);
                     break;
                 } 
             }
-            helper(g, start, path, visited);
-
+            
+            for (ArrayList<Vertex> p1 : paths) {
+              for (Vertex v : p1) {
+                System.out.print(v.getLabel());
+              }
+              System.out.println();
+            }
             ArrayList<ArrayList<Vertex>> result = new ArrayList<ArrayList<Vertex>>();
             for (ArrayList<Vertex> p1 : paths) {
                 for (ArrayList<Vertex> p2 : paths) {
@@ -39,7 +45,7 @@ public class Algorithms {
             return result;
         }
 
-        private static void helper(Graph g, Vertex current, ArrayList<Vertex> path, Map<Vertex, boolean> visited) {
+        private static void helper(Graph g, Vertex current, ArrayList<Vertex> path, Map<Vertex, Boolean> visited) {
             List<Vertex> vertices = g.getVertices();
             int idx = vertices.indexOf(current);
 
@@ -55,7 +61,7 @@ public class Algorithms {
                 if (!visited.get(v)) {
                     path.add(v);
                     visited.put(v, true);
-                    helper(i, vertices[idx + 1], path, visited);
+                    helper(g, vertices.get(idx + 1), path, visited);
                     visited.put(v, false);
                     path.remove(v);
                 }

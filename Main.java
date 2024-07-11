@@ -9,14 +9,16 @@ public class Main {
 
     public static void main(String[] args) {
         Graph graph = generateGraph(5);
-
+        /*
         for (Vertex v : graph.getVertices()) {
             for (Edge e: v.getEdges()) {
                 System.out.printf("%s, %s, %d\n", v.getLabel(), e.getTo().getLabel(), e.getWeight());
             }
         }
-
+        */
+        
         ArrayList<ArrayList<Vertex>> paths = Algorithms.BruteForce.findHamiltonianCycles(graph, graph.getVertices().get(0));
+        System.out.println(paths.size());
         for (ArrayList<Vertex> p : paths) {
             for (Vertex v : p) {
                 System.out.print(v.getLabel() + " ");
