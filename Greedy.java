@@ -47,15 +47,21 @@ public class Greedy {
     private static Edge greedyEdge(Graph g, HashSet<Vertex> notFull) {
         ArrayList<Integer> dist = new ArrayList<Integer>();
         HashMap<Integer, Edge> eWeights = new HashMap<Integer, Edge>();
-
+        boolean flag = false;
         for (Vertex v : g.getVertices()) {
             for (Edge e : v.getEdges()) {
                 if (notFull.contains(v) && notFull.contains(e.getTo())) {
                     dist.add(e.getWeight());
                     eWeights.put(e.getWeight(), e);
+                    flag = true;
                 }
             }
         }
+        
+        if (notFull.size() == 0) {
+            System.out.println(flag);
+        }
+
         Collections.sort(dist);
 
         return eWeights.get(dist.get(0));

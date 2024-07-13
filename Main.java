@@ -8,6 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
         Graph graph = generateGraph(5);
+        Vertex root = graph.getVertices().get(0);
         
         /*
         for (Vertex v : graph.getVertices()) {
@@ -19,11 +20,15 @@ public class Main {
         }
         */
     
-        ArrayList<Vertex> path = Algorithms.BruteForce.findBestPath(graph, graph.getVertices().get(0));
+        ArrayList<Vertex> path = Algorithms.BruteForce.findBestPath(graph, root);
         Algorithms.Helpers.printPath(path);
 
-        path = Algorithms.NearestNeighbor.nearestNeighborPath(graph, graph.getVertices().get(0));
+        path = Algorithms.NearestNeighbor.nearestNeighborPath(graph, root);
         Algorithms.Helpers.printPath(path);
+        
+        path = Greedy.greedyPath(graph, root); 
+        Algorithms.Helpers.printPath(path);
+
     }
 
     private static Graph generateGraph(int num_vertices) {
