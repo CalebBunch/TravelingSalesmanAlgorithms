@@ -3,6 +3,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class Algorithms {
     
@@ -79,6 +80,46 @@ public class Algorithms {
                     path.remove(path.size() - 1);
                 }
             }
+        }
+    }
+
+    public static class NearestNeighbor {
+        
+        public static ArrayList<Vertex> nearestNeighborPath(Graph g, Vertex root) {
+            ArrayList<Vertex> res = new ArrayList<Vertex>();
+            res.add(root);
+
+            HashSet<Vertex> notConnected = new HashSet<Vertex>();
+            for (Vertex v : g.getVertices()) {
+                if (v != root) notConnected.add(v);
+            }
+
+            int temp = notConnected.size(); // because notConnected changes size
+            for (int i = 0; i < temp; i++) { 
+                Vertex nN = nearestNeighbor(res.get(i), notConnected);
+                res.add(nN);
+                notConnected.remove(nN);
+            }
+            res.add(root);
+
+            return res;
+        }
+
+
+        // returns the nearest vertex to root in notConnected
+        private static Vertex nearestNeighbor(Vertex curr, HashSet<Vertex> notConnected) {
+            ArrayList<Integer> relDist = new ArrayList<Integer>();
+            HashMap<Integer, Vertex> eWeights = new HashMap<Integer, Vertex>();
+        
+            for (Edge e : curr.getEdges()) {
+                if (notConnected.contains(e.getTo())) {
+                    eWeights.put(e.getWeight(), e.getTo());
+                    relDist.add(e.getWeight());
+                }
+            }
+            Collections.sort(relDist);
+
+            return eWeights.get(relDist.get(0));
         }
     }
     

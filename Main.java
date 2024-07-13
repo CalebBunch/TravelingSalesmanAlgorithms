@@ -25,6 +25,13 @@ public class Main {
         }
         System.out.print(path.get(path.size() - 1).getLabel());
         System.out.println("\nWeight: " + Integer.toString(Algorithms.calculateWeight(path)));
+
+        path = Algorithms.NearestNeighbor.nearestNeighborPath(graph, graph.getVertices().get(0));
+        for (int i = 0; i < (path.size() - 1); i++) {
+            System.out.print(path.get(i).getLabel() + " -> ");
+        }
+        System.out.print(path.get(path.size() - 1).getLabel());
+        System.out.println("\nWeight: " + Integer.toString(Algorithms.calculateWeight(path)));
     }
 
     private static Graph generateGraph(int num_vertices) {
