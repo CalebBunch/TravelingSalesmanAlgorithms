@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.lang.Integer;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -9,22 +8,23 @@ public class Main {
 
     public static void main(String[] args) {
         Graph graph = generateGraph(5);
+        
         /*
         for (Vertex v : graph.getVertices()) {
-            for (Edge e: v.getEdges()) {
-                System.out.printf("%s, %s, %d\n", v.getLabel(), e.getTo().getLabel(), e.getWeight());
-            }
-        }
-        */
-        
-        ArrayList<ArrayList<Vertex>> paths = Algorithms.BruteForce.findHamiltonianCycles(graph, graph.getVertices().get(0));
-        System.out.println(paths.size());
-        for (ArrayList<Vertex> p : paths) {
-            for (Vertex v : p) {
-                System.out.print(v.getLabel() + " ");
+            System.out.println(v.getLabel());
+            for (Edge e : v.getEdges()) {
+                System.out.println(e.getTo().getLabel() + " " + Integer.toString(e.getWeight()));
             }
             System.out.println();
         }
+        */
+    
+        ArrayList<Vertex> path = Algorithms.BruteForce.findBestPath(graph, graph.getVertices().get(0));
+        for (int i = 0; i < (path.size() - 1); i++) {
+            System.out.print(path.get(i).getLabel() + " -> ");
+        }
+        System.out.print(path.get(path.size() - 1).getLabel());
+        System.out.println("\nWeight: " + Integer.toString(Algorithms.calculateWeight(path)));
     }
 
     private static Graph generateGraph(int num_vertices) {
