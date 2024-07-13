@@ -20,18 +20,10 @@ public class Main {
         */
     
         ArrayList<Vertex> path = Algorithms.BruteForce.findBestPath(graph, graph.getVertices().get(0));
-        for (int i = 0; i < (path.size() - 1); i++) {
-            System.out.print(path.get(i).getLabel() + " -> ");
-        }
-        System.out.print(path.get(path.size() - 1).getLabel());
-        System.out.println("\nWeight: " + Integer.toString(Algorithms.calculateWeight(path)));
+        Algorithms.Helpers.printPath(path);
 
         path = Algorithms.NearestNeighbor.nearestNeighborPath(graph, graph.getVertices().get(0));
-        for (int i = 0; i < (path.size() - 1); i++) {
-            System.out.print(path.get(i).getLabel() + " -> ");
-        }
-        System.out.print(path.get(path.size() - 1).getLabel());
-        System.out.println("\nWeight: " + Integer.toString(Algorithms.calculateWeight(path)));
+        Algorithms.Helpers.printPath(path);
     }
 
     private static Graph generateGraph(int num_vertices) {

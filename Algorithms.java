@@ -7,16 +7,28 @@ import java.util.HashSet;
 
 public class Algorithms {
     
-    public static int calculateWeight(ArrayList<Vertex> path) {
-        int weight = 0;
-        for (int i = 0; i < (path.size() - 1); i++) {
-            for (Edge e : path.get(i).getEdges()) {
-                if (e.getTo().equals(path.get(i + 1))) {
-                  weight += e.getWeight();
+    public static class Helpers {
+        
+        public static int calculateWeight(ArrayList<Vertex> path) {
+            int weight = 0;
+            for (int i = 0; i < (path.size() - 1); i++) {
+                for (Edge e : path.get(i).getEdges()) {
+                    if (e.getTo().equals(path.get(i + 1))) {
+                        weight += e.getWeight();
+                    }
                 }
             }
+            return weight;
         }
-        return weight;
+
+        public static void printPath(ArrayList<Vertex> path) {
+            System.out.print("Path: ");
+            for (int i = 0; i < (path.size() - 1); i++) {
+                System.out.print(path.get(i).getLabel() + " -> ");
+            }
+            System.out.print(path.get(path.size() - 1).getLabel());
+            System.out.println("\nWeight: " + Integer.toString(Helpers.calculateWeight(path)) + "\n");
+        }
     }
 
     public static class BruteForce {
@@ -45,11 +57,11 @@ public class Algorithms {
                     }
                 }
             }
-            
-            int minWeight = calculateWeight(options.get(0));
+
+            int minWeight = Helpers.calculateWeight(options.get(0));
             ArrayList<Vertex> bestPath = new ArrayList<>(options.get(0));
             for (ArrayList<Vertex> p : options) {
-                int w = calculateWeight(p);
+                int w = Helpers.calculateWeight(p);
                 if (w < minWeight) {
                     minWeight = w;
                     bestPath = p;
