@@ -10,17 +10,11 @@ public class Main {
         Graph graph = generateGraph(5);
         Vertex root = graph.getVertices().get(0);
         
-        for (Vertex v : graph.getVertices()) {
-            System.out.println(v.getLabel());
-            for (Edge e : v.getEdges()) {
-                System.out.println(e.getTo().getLabel() + " " + Integer.toString(e.getWeight()));
-            }
-            System.out.println();
-        }
+        Algorithms.Helpers.printGraph(graph);
+        System.out.println("\n");
+        Graph mst = Algorithms.MinimumSpanningTree.primsAlgorithm(graph, root);
+        Algorithms.Helpers.printGraph(mst); 
         
-        ArrayList<Vertex> mst = Algorithms.MinimumSpanningTree.primsAlgorithm(graph, root);
-        Algorithms.Helpers.printPath(mst);  
-
         ArrayList<Vertex> path = Algorithms.BruteForce.findBestPath(graph, root);
         Algorithms.Helpers.printPath(path);
 

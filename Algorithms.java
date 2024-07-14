@@ -30,6 +30,14 @@ public class Algorithms {
             System.out.print(path.get(path.size() - 1).getLabel());
             System.out.println("\nWeight: " + Integer.toString(Helpers.calculateWeight(path)) + "\n");
         }
+
+        public static void printGraph(Graph g) {
+            for (Vertex v : g.getVertices()) {
+                for (Edge e : v.getEdges()) {
+                    System.out.println(v.getLabel() + " -> " + e.getTo().getLabel() + " : " + e.getWeight());
+                }
+            }
+        }
     }
 
     public static class BruteForce {
@@ -163,18 +171,26 @@ public class Algorithms {
     }
 
     public class MinimumSpanningTree {
-        
-        public static ArrayList<Vertex> primsAlgorithm(Graph g, Vertex root) {
-            ArrayList<Vertex> visited = new ArrayList<Vertex>();
-            visited.add(root);
-            while (visited.size() < g.getVertices().size()) {
+
+        private static ArrayList<String> getLabels(Graph g) {
+            ArrayList<String> labels = new ArrayList<String>();
+            for (Vertex v : g.getVertices()) {
+                labels.add(v.getLabel());
+            }
+            return labels;
+        }
+  
+        public static Graph primsAlgorithm(Graph g, Vertex root) {
+            Graph mst = new Graph();
+            mst.addVertex(0, new Vertex(root.getLabel()));
+            while (mst.getVertices().size() < g.getVertices().size()) {
                 int minWeight = Integer.MAX_VALUE;
                 Vertex best = new Vertex("-1");
                 Vertex from = new Vertex("-1");
                 for (Vertex v : g.getVertices()) {
-                    if (visited.contains(v)) {
+                    if (getLabels(mst).contains(v.getLabel())) {
                         for (Edge e : v.getEdges()) {
-                            if (e.getWeight() < minWeight && !visited.contains(e.getTo())) {
+                            if (e.getWeight() < minWeight && !getLabels(mst).contains(e.getTo().getLabel())) {
                                 minWeight = e.getWeight();
                                 best = e.getTo();
                                 from = v;
@@ -182,11 +198,16 @@ public class Algorithms {
                         }
                     }
                 }
-                System.out.println(from.getLabel() + " " + best.getLabel());
-                visited.add(best);  
+                Vertex toAdd = new Vertex(best.getLabel());
+                for (Vertex v : mst.getVertices()) {
+                    if (v.getLabel() == from.getLabel()) {
+                        v.addEdge(new Edge(toAdd, minWeight));
+                        break;
+                    } 
+                }
+                mst.addVertex(mst.getVertices().size() - 1, toAdd);
             }
-            
-            return visited;
+            return mst;
         }
     }
     
