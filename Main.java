@@ -10,7 +10,6 @@ public class Main {
         Graph graph = generateGraph(5);
         Vertex root = graph.getVertices().get(0);
         
-        /*
         for (Vertex v : graph.getVertices()) {
             System.out.println(v.getLabel());
             for (Edge e : v.getEdges()) {
@@ -18,8 +17,10 @@ public class Main {
             }
             System.out.println();
         }
-        */
-    
+        
+        ArrayList<Vertex> mst = Algorithms.MinimumSpanningTree.primsAlgorithm(graph, root);
+        Algorithms.Helpers.printPath(mst);  
+
         ArrayList<Vertex> path = Algorithms.BruteForce.findBestPath(graph, root);
         Algorithms.Helpers.printPath(path);
 

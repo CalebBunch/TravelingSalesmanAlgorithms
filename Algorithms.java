@@ -161,6 +161,34 @@ public class Algorithms {
         }
         
     }
+
+    public class MinimumSpanningTree {
+        
+        public static ArrayList<Vertex> primsAlgorithm(Graph g, Vertex root) {
+            ArrayList<Vertex> visited = new ArrayList<Vertex>();
+            visited.add(root);
+            while (visited.size() < g.getVertices().size()) {
+                int minWeight = Integer.MAX_VALUE;
+                Vertex best = new Vertex("-1");
+                Vertex from = new Vertex("-1");
+                for (Vertex v : g.getVertices()) {
+                    if (visited.contains(v)) {
+                        for (Edge e : v.getEdges()) {
+                            if (e.getWeight() < minWeight && !visited.contains(e.getTo())) {
+                                minWeight = e.getWeight();
+                                best = e.getTo();
+                                from = v;
+                            }
+                        }
+                    }
+                }
+                System.out.println(from.getLabel() + " " + best.getLabel());
+                visited.add(best);  
+            }
+            
+            return visited;
+        }
+    }
     
 }
 
