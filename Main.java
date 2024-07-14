@@ -25,6 +25,9 @@ public class Main {
 
         path = Algorithms.NearestNeighbor.nearestNeighborPath(graph, root);
         Algorithms.Helpers.printPath(path);
+
+        path = Algorithms.Optimization.randomSwapping(path, 5);
+        Algorithms.Helpers.printPath(path);
         
         path = Greedy.greedyPath(graph, root); 
         Algorithms.Helpers.printPath(path);

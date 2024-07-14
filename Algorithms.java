@@ -1,3 +1,4 @@
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -96,7 +97,7 @@ public class Algorithms {
     }
 
     public static class NearestNeighbor {
-        
+
         public static ArrayList<Vertex> nearestNeighborPath(Graph g, Vertex root) {
             ArrayList<Vertex> res = new ArrayList<Vertex>();
             res.add(root);
@@ -133,6 +134,32 @@ public class Algorithms {
 
             return eWeights.get(relDist.get(0));
         }
+    }
+
+    public static class Optimization {
+        
+        public static ArrayList<Vertex> randomSwapping(ArrayList<Vertex> path, int iterations) {
+            ArrayList<Vertex> bestPath = new ArrayList<>(path);
+            ArrayList<Vertex> testPath = new ArrayList<>(path);
+            int minWeight = Helpers.calculateWeight(path);
+            int count = 0;
+            while (count < iterations) {
+                int idx1 = ThreadLocalRandom.current().nextInt(1, testPath.size() - 1);
+                int idx2 = ThreadLocalRandom.current().nextInt(1, testPath.size() - 1);
+                Collections.swap(testPath, idx1, idx2);
+                int weight = Helpers.calculateWeight(testPath);
+                if (weight < minWeight) {
+                    minWeight = weight;
+                    bestPath = new ArrayList<>(testPath);
+                } 
+                
+                testPath = new ArrayList<>(path);
+                count++;
+            }
+
+            return bestPath;
+        }
+        
     }
     
 }
