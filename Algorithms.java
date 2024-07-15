@@ -29,14 +29,21 @@ public class Algorithms {
             for (int i = 1; i < g.getVertices().size(); i++) {
                 duplicate.addVertex(duplicate.getVertices().size(), g.getVertices().get(i));
             }
-            Graph mst = MinimumSpanningTree.primsAlgorithm(g, duplicate.getVertices().get(0));
+            
+            Graph mst = MinimumSpanningTree.primsAlgorithm(duplicate, duplicate.getVertices().get(0));
+            
             int lowerBound = 0;
             for (Vertex v : mst.getVertices()) {
                 for (Edge e : v.getEdges()) {
                     lowerBound += e.getWeight();
                 }
             }
-            ArrayList<Edge> edges = new ArrayList(g.getVertices().get(0).getEdges());
+
+            ArrayList<Edge> edges = new ArrayList<Edge>();
+            for (Edge e : g.getVertices().get(0).getEdges()) {
+                edges.add(e);
+            }
+
             ArrayList<Integer> sorted = getWeights(edges).stream().sorted().collect(Collectors.toCollection(ArrayList::new));
             lowerBound += (sorted.get(0) + sorted.get(1));
             return lowerBound;
