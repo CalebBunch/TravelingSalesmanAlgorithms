@@ -20,6 +20,10 @@ public class Main {
 
         path = Algorithms.NearestNeighbor.nearestNeighborPath(graph, root);
         Algorithms.Helpers.printPath(path);
+        System.out.println("1 Tree: " + Algorithms.Helpers.oneTreeLowerBound(graph));
+        if (Algorithms.Helpers.calculateWeight(path) < Algorithms.Helpers.oneTreeLowerBound(graph)) {
+            System.out.println("not allowed");
+        }
 
         path = Algorithms.Optimization.randomSwapping(path, 5);
         Algorithms.Helpers.printPath(path);

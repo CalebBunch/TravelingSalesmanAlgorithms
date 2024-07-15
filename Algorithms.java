@@ -1,10 +1,12 @@
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.HashSet;
+
 
 public class Algorithms {
     
@@ -21,7 +23,33 @@ public class Algorithms {
             }
             return weight;
         }
+        
+        public static int oneTreeLowerBound(Graph g) {
+            Graph duplicate = new Graph();
+            for (int i = 1; i < g.getVertices().size(); i++) {
+                duplicate.addVertex(duplicate.getVertices().size(), g.getVertices().get(i));
+            }
+            Graph mst = MinimumSpanningTree.primsAlgorithm(g, duplicate.getVertices().get(0));
+            int lowerBound = 0;
+            for (Vertex v : mst.getVertices()) {
+                for (Edge e : v.getEdges()) {
+                    lowerBound += e.getWeight();
+                }
+            }
+            ArrayList<Edge> edges = new ArrayList(g.getVertices().get(0).getEdges());
+            ArrayList<Integer> sorted = getWeights(edges).stream().sorted().collect(Collectors.toCollection(ArrayList::new));
+            lowerBound += (sorted.get(0) + sorted.get(1));
+            return lowerBound;
+        }
 
+        public static ArrayList<Integer> getWeights(ArrayList<Edge> edges) {
+            ArrayList<Integer> weights = new ArrayList<Integer>();
+            for (Edge e : edges) {
+                weights.add(e.getWeight());
+            }
+            return weights;
+        }
+        
         public static void printPath(ArrayList<Vertex> path) {
             System.out.print("Path: ");
             for (int i = 0; i < (path.size() - 1); i++) {
@@ -205,7 +233,7 @@ public class Algorithms {
                         break;
                     } 
                 }
-                mst.addVertex(mst.getVertices().size() - 1, toAdd);
+                mst.addVertex(mst.getVertices().size(), toAdd);
             }
             return mst;
         }
