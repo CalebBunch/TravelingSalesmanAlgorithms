@@ -27,11 +27,17 @@ public class Algorithms {
         public static int oneTreeLowerBound(Graph g) {
             Graph duplicate = new Graph();
             for (int i = 1; i < g.getVertices().size(); i++) {
-                duplicate.addVertex(duplicate.getVertices().size(), g.getVertices().get(i));
+                Vertex n = new Vertex(Integer.toString(i));
+                for (Edge e : g.getVertices().get(i).getEdges()) {
+                    if (!e.getTo().getLabel().equals("0")) {
+                        n.addEdge(e);
+                    }
+                }
+                duplicate.addVertex(duplicate.getVertices().size(), n);
             }
             
             Graph mst = MinimumSpanningTree.primsAlgorithm(duplicate, duplicate.getVertices().get(0));
-            
+             
             int lowerBound = 0;
             for (Vertex v : mst.getVertices()) {
                 for (Edge e : v.getEdges()) {

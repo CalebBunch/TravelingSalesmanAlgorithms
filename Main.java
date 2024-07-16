@@ -22,7 +22,7 @@ public class Main {
         Algorithms.Helpers.printPath(path);
         System.out.println("1 Tree: " + Algorithms.Helpers.oneTreeLowerBound(graph));
         if (Algorithms.Helpers.calculateWeight(path) < Algorithms.Helpers.oneTreeLowerBound(graph)) {
-            System.out.println("not allowed");
+            System.out.println("WARNING: Lower bound should never be larger than the optimal solution.");
         }
 
         path = Algorithms.Optimization.randomSwapping(path, 5);
