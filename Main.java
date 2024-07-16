@@ -28,9 +28,6 @@ public class Main {
         path = Algorithms.Optimization.randomSwapping(path, 5);
         Algorithms.Helpers.printPath(path);
         
-        path = Greedy.greedyPath(graph, root); 
-        Algorithms.Helpers.printPath(path);
-
     }
 
     private static Graph generateGraph(int num_vertices) {
