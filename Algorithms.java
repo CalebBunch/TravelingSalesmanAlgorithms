@@ -1,8 +1,5 @@
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
-
-import com.sun.tools.javac.code.Attribute.Array;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
