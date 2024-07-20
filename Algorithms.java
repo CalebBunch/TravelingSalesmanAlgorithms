@@ -12,7 +12,7 @@ public class Algorithms {
     
     public static class Helpers {
         
-        private static Graph generateGraph(int num_vertices, int min, int max) {
+        public static Graph generateGraph(int num_vertices, int min, int max) {
             Graph graph = new Graph();
         
             for (int i = 0; i < num_vertices; i++) {
@@ -230,6 +230,48 @@ public class Algorithms {
             return bestPath;
         }
 
+        public static ArrayList<Vertex> twoOptHelper(ArrayList<Vertex> path, Vertex v1, Vertex v2) {
+            ArrayList<Vertex> newRoute = new ArrayList<Vertex>();
+            int idxV1 = path.indexOf(v1);
+            int idxV2 = path.indexOf(v2);
+            
+            for (int i = 0; i <= idxV1; i++) {
+                newRoute.add(path.get(i));
+            }
+
+            for (int i = idxV2; i > idxV1; i--) {
+                newRoute.add(path.get(i));
+            }
+
+            for (int i = idxV2 + 1; i < path.size(); i++) {
+                newRoute.add(path.get(i));
+            }
+            
+            return newRoute;
+        }
+
+        public static ArrayList<Vertex> twoOpt(ArrayList<Vertex> path) {
+            while (true) {
+                int best = Helpers.calculateWeight(path);
+                ArrayList<Vertex> bestPath = new ArrayList<Vertex>(path);
+                start:
+                for (int i = 1; i < bestPath.size() - 2; i++) {
+                    for (int j = i + 1; j < bestPath.size() - 1; j++) {
+                        ArrayList<Vertex> newPath = twoOptHelper(bestPath, bestPath.get(i), bestPath.get(i));
+                        int newWeight = Helpers.calculateWeight(newPath);
+                        if (newWeight < best) {
+                            bestPath = newPath;
+                            best = newWeight;
+                            break start;
+                        }
+                    }
+                }
+
+                return bestPath;
+            }
+        }
+    }
+
     public class MinimumSpanningTree {
 
         private static ArrayList<String> getLabels(Graph g) {
@@ -270,6 +312,5 @@ public class Algorithms {
             return mst;
         }
     }
-    
 }
 

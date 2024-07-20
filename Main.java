@@ -25,6 +25,9 @@ public class Main {
             System.out.println("WARNING: Lower bound should never be larger than the optimal solution.");
         }
 
+        path = Algorithms.Optimization.twoOpt(path);
+        Algorithms.Helpers.printPath(path);
+
         path = Algorithms.Optimization.randomSwapping(path, 5);
         Algorithms.Helpers.printPath(path);
         
