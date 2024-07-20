@@ -210,6 +210,7 @@ public class Algorithms {
         }
 
         public static ArrayList<Vertex> linKernighan(Graph g, ArrayList<Vertex> path, int backTrackingDepth, int infeasibilityDepth) {
+            // https://en.wikipedia.org/wiki/Lin%E2%80%93Kernighan_heuristic
             ArrayList<Edge> tour = new ArrayList<Edge>();
             // TODO: tour maybe should not have vi->v0 as the last element
             for (int i = 0; i < (g.getVertices().size() - 1); i++) {
@@ -325,6 +326,4 @@ public class Algorithms {
     }
     
 }
-
-
 
