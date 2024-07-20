@@ -83,7 +83,7 @@ public class Algorithms {
             }
             return weights;
         }
-        
+       
         public static void printPath(ArrayList<Vertex> path) {
             System.out.print("Path: ");
             for (int i = 0; i < (path.size() - 1); i++) {
@@ -229,81 +229,6 @@ public class Algorithms {
 
             return bestPath;
         }
-
-        public static ArrayList<Vertex> linKernighan(Graph g, ArrayList<Vertex> path, int backTrackingDepth, int infeasibilityDepth) {
-            // https://en.wikipedia.org/wiki/Lin%E2%80%93Kernighan_heuristic
-            ArrayList<Edge> tour = new ArrayList<Edge>();
-            // TODO: tour maybe should not have vi->v0 as the last element
-            for (int i = 0; i < (g.getVertices().size() - 1); i++) {
-                for (Edge e : g.getVertices().get(i).getEdges()) {
-                    if (e.getTo().equals(g.getVertices().get(i + 1))) {
-                        tour.add(e);
-                    }
-                }
-            }
-
-            Stack<ArrayList<Object>> s = new Stack<ArrayList<Object>>();
-            boolean zeroGain = false;
-            
-            while (!zeroGain) {
-                int totalGain = 0;
-                ArrayList<Edge> f = new ArrayList<Edge>();
-                
-                for (Vertex v : g.getVertices()) {
-                    ArrayList<Object> triple = new ArrayList<Object>();
-                    triple.add(v);
-                    triple.add(0);
-                    triple.add(0);
-                    s.push(triple);
-                }
-                
-                while (!s.empty()) {
-                    ArrayList<Object> t = s.pop();
-                    Vertex vi = (Vertex) t.get(0);
-                    int i = (int) t.get(1);
-                    int gain = (int) t.get(2);
-
-                    if (i % 2 == 0) {
-                        for (Vertex v : g.getVertices()) {
-                            for (Edge e : v.getEdges()) {
-                                if (e.getTo().equals(vi) && tour.contains(e)) {
-                                    // TODO: second condition here
-                                    if (i <= infeasibilityDepth || ()) {
-                                       ArrayList<Object> triple = new ArrayList<Object>();
-                                       triple.add(v);
-                                       triple.add(i + 1);
-                                       triple.add(gain + e.getWeight());
-                                       s.push(triple);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else {
-                        int cost = 0;
-                        for (Edge e : vi.getEdges()) {
-                            if (e.getTo().equals(g.getVertices().get(0))) {
-                                cost = e.getWeight();
-                                break;
-                            }
-                        }
-                        // TODO: third condition here
-                        if (gain > cost && (gain - cost) > totalGain && ) {
-                            f.clear();
-                            for (Vertex v)
-                        }
-                    }
-                }
-
-                if (totalGain == 0) {
-                    zeroGain = true;
-                }
-            }
-
-            return betterPath;
-        } 
-        
-    }
 
     public class MinimumSpanningTree {
 
