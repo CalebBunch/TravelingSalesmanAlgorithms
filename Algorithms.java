@@ -286,7 +286,7 @@ public class Algorithms {
                 temp = Math.pow(2.7182818, -(0.05)*i);
 
                 if (currW < prevW || prob > Math.random()) {
-                    prev = (ArrayList)curr.clone(); // does this break because of java's crap clone function?
+                    prev = (ArrayList<Vertex>)curr.clone(); // does this break because of java's crap clone function?
                 }
             }
             return prev;
