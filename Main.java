@@ -7,7 +7,7 @@ public class Main {
     private static final int MAX = 199;
 
     public static void main(String[] args) {
-        Graph graph = Algorithms.Helpers.generateGraph(5);
+        Graph graph = Algorithms.Helpers.generateGraph(5, MIN, MAX);
         Vertex root = graph.getVertices().get(0);
         
         Algorithms.Helpers.printGraph(graph);

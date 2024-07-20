@@ -12,7 +12,7 @@ public class Algorithms {
     
     public static class Helpers {
         
-        private static Graph generateGraph(int num_vertices) {
+        private static Graph generateGraph(int num_vertices, int min, int max) {
             Graph graph = new Graph();
         
             for (int i = 0; i < num_vertices; i++) {
@@ -23,7 +23,7 @@ public class Algorithms {
             for (Vertex vi : graph.getVertices()) {
                 for (Vertex vj : graph.getVertices()) {
                     if (vi != vj && !vi.getEdges().stream().map(e -> e.getTo()).anyMatch(x -> x.equals(vj))) {
-                        int randInt = ThreadLocalRandom.current().nextInt(MIN, MAX + 1);
+                        int randInt = ThreadLocalRandom.current().nextInt(min, max + 1);
                         vi.addEdge(new Edge(vj, randInt));
                         vj.addEdge(new Edge(vi, randInt));
                     } 
