@@ -12,6 +12,27 @@ public class Algorithms {
     
     public static class Helpers {
         
+        private static Graph generateGraph(int num_vertices) {
+            Graph graph = new Graph();
+        
+            for (int i = 0; i < num_vertices; i++) {
+                Vertex v = new Vertex(Integer.toString(i));
+                graph.addVertex(i, v);
+            }
+        
+            for (Vertex vi : graph.getVertices()) {
+                for (Vertex vj : graph.getVertices()) {
+                    if (vi != vj && !vi.getEdges().stream().map(e -> e.getTo()).anyMatch(x -> x.equals(vj))) {
+                        int randInt = ThreadLocalRandom.current().nextInt(MIN, MAX + 1);
+                        vi.addEdge(new Edge(vj, randInt));
+                        vj.addEdge(new Edge(vi, randInt));
+                    } 
+                }
+            }
+
+            return graph;
+        }
+
         public static int calculateWeight(ArrayList<Vertex> path) {
             int weight = 0;
             for (int i = 0; i < (path.size() - 1); i++) {
