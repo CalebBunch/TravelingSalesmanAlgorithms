@@ -270,6 +270,27 @@ public class Algorithms {
                 return bestPath;
             }
         }
+
+
+        public static ArrayList<Vertex> simulatedAnnealing(ArrayList<Vertex> path, int iterations) { // uses random swapping atm
+            double temp = 1; //[0, 1]
+            int i = 0;
+            ArrayList<Vertex> prev = new ArrayList<>(path);
+            while (i < iterations) {
+                ArrayList<Vertex> curr = new ArrayList<>(randomSwapping(prev, 1));
+                int currW = Helpers.calculateWeight(curr);
+                int prevW = Helpers.calculateWeight(prev); 
+                double prob = Math.pow(2.7182818, -((currW-prevW)/temp));
+
+                i++;
+                temp = Math.pow(2.7182818, -(0.05)*i);
+
+                if (currW < prevW || prob > Math.random()) {
+                    prev = (ArrayList)curr.clone(); // does this break because of java's crap clone function?
+                }
+            }
+            return prev;
+        }
     }
 
     public class MinimumSpanningTree {
